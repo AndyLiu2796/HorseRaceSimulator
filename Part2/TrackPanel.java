@@ -40,6 +40,7 @@ public class TrackPanel extends JPanel {
             race.setTrackLength(trackLength);
             race.setTrackShape(shape);
             race.setWeather(weather);
+            confirmButton.setText("Reset");
         });
         add(confirmButton);
     }

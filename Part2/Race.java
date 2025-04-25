@@ -136,6 +136,13 @@ public class Race
         }
     }
 
+    public void riseAllHorses() {
+        for (Horse h : lanes) {
+            if (h != null) {
+                h.rise();
+            }
+        }
+    }
     /**
      * Start the race
      * The horse are brought to the start and
@@ -152,6 +159,7 @@ public class Race
         //     h.goBackToStart();
         // }
         resetAllHorses();
+        riseAllHorses();
 
         while (!finished)
         {

@@ -45,8 +45,9 @@ public class Test {
             new Thread(() -> {
                 race.startRace(racePanel);
             }).start();;
+            startButton.setText("Reset");
         });
-        frame.add(startButton, BorderLayout.WEST);
+        frame.add(startButton, BorderLayout.SOUTH);
         // frame.add(refreshButton, BorderLayout.WEST);
         frame.setVisible(true);
     }

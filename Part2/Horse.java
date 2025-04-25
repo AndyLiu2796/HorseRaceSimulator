@@ -125,6 +125,10 @@ public class Horse
             this.horseConfidence = 0; // Ensure confidence doesn't go below 0
         } // MIGHT AS WELL JSUT USE MATH.MIN FOR IT
     }
+
+    public void rise() {
+        this.horseFallen = false;
+    }
     
     // accessor method to get confidence
     public double getConfidence() { return this.horseConfidence; }
