@@ -155,8 +155,12 @@ public class Horse
     public void goBackToStart() { this.horseDistance = 0; }
     
     // accessor method to get horseFallen status
-    public boolean hasFallen() { return this.horseFallen; }
-
+    public boolean hasFallen() { 
+        if (this != null) {
+            return this.horseFallen; // or throw an exception
+        }
+        return true;
+    }
     // mutator method to move horse forward by 1(default)
     public void moveForward() { this.horseDistance+=speed;}
 

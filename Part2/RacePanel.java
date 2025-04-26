@@ -71,6 +71,21 @@ public class RacePanel extends JPanel{
             });
             add(jtf);
         }
+        JTextField jtf = new JTextField();
+        jtf.setPreferredSize(new Dimension(race.getTrackLength()*15, jtf.getPreferredSize().height));
+        if (!race.checkLosers()) {
+            jtf.setText("No winners");
+        }
+        else {
+            if (race.getWinners().size() == 1) {
+                jtf.setText("Winner: " + race.getWinners().get(0) + " won!");
+            }
+            else if (race.getWinners().size() > 1) {
+                jtf.setText("Winners: " + String.join(" + ", race.getWinners()) + " won!");
+            }
+        }
+        jtf.setEditable(false);
+        add(jtf);
         revalidate();
         repaint();
     }

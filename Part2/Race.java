@@ -337,7 +337,7 @@ public class Race
      */
     private boolean raceWonBy(Horse theHorse)
     {
-        if (theHorse.getDistanceTravelled() >= raceLength)
+        if (theHorse.getDistanceTravelled() >= raceLength && theHorse != null)
         {
             return true;
         }
@@ -350,6 +350,9 @@ public class Race
     public ArrayList<String> getWinners() {
         ArrayList<String> winners = new ArrayList<>();
         for (Horse h : lanes) {
+            if (h == null) {
+                continue; // skip null horses
+            }
             if (raceWonBy(h)) {
                 winners.add(h.getName());
             }
