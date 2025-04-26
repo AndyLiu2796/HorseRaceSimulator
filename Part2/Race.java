@@ -7,6 +7,7 @@ import java.lang.Math;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.*;
+import java.time.LocalDate;
 
 /**
  * A three-horse race, each horse running in its own lane
@@ -151,8 +152,12 @@ public class Race
      */
     public void startRace(RacePanel rp)
     {
+
         //declare a local variable to tell us when the race is finished
         boolean finished = false;
+        long raceStartTime = System.currentTimeMillis();
+        long raceEndTime = 0; // Initialize with a default value
+
         
         //reset all the lanes (all horses not fallen and back to 0). 
         // for (Horse h : lanes) {
@@ -180,6 +185,7 @@ public class Race
             for (Horse h: lanes) {
                 if (h!= null && raceWonBy(h)) {
                     finished = true;
+                    raceEndTime = System.currentTimeMillis();
                     break;
                 }
             }
@@ -190,6 +196,7 @@ public class Race
             // }
             if (!checkLosers()) {
                 finished = true;
+                raceEndTime = System.currentTimeMillis();
                 System.out.println("All horses have fallen!");
             }
            
@@ -200,17 +207,31 @@ public class Race
             }catch(Exception e){}
 
         }
-        // print the winners
-        if (getWinners().size() == 0) {
-            System.out.println("No winners!");
-        }
-        else if (getWinners().size() == 1) {
-            System.out.print("Winner: ");
-            System.out.println(getWinners().get(0) + " won!");
-        }
-        else {
-            System.out.print("Winners: ");
-            System.out.println(String.join(" + ", getWinners()) + " won!");
+        // // print the winners
+        // if (getWinners().size() == 0) {
+        //     System.out.println("No winners!");
+        // }
+        // else if (getWinners().size() == 1) {
+        //     System.out.print("Winner: ");
+        //     System.out.println(getWinners().get(0) + " won!");
+        // }
+        // else {
+        //     System.out.print("Winners: ");
+        //     System.out.println(String.join(" + ", getWinners()) + " won!");
+        // }
+        double raceDuration = ((double)(raceEndTime - raceStartTime)) / 1000.0; // in seconds
+        addRecord();
+    }
+
+    public void addRecord () {
+        for (Horse h : lanes) {
+            if (h != null) {
+                // Create a new HorsePerformance object
+                HorsePerformance hp = new HorsePerformance(LocalDate.now().toString(), raceLength+trackShape, weather, h.getDistanceTravelled(), h);
+                // Add the performance record to the horse
+                hp.setFell(h.hasFallen());
+                h.stats.addPerformance(hp, raceWonBy(h), h);
+            }
         }
     }
 
@@ -339,6 +360,7 @@ public class Race
     {
         if (theHorse.getDistanceTravelled() >= raceLength && theHorse != null)
         {
+            theHorse.addConfidence(0.05);
             return true;
         }
         else
@@ -364,7 +386,7 @@ public class Race
     // It returns false when all fallen
     public boolean checkLosers() {
         for (Horse h : lanes) {
-            if (!h.hasFallen() && h != null) {
+            if (h!=null && !h.hasFallen()) {
                 return true; // at least one not fallen
             }
         }

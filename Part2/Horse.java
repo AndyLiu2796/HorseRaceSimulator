@@ -26,7 +26,15 @@ public class Horse
     private String shoesType = "None"; // default shoes type
     private String accessories = "No"; // default accessories
     private int speed = 1;
-    
+
+
+    // extra field for stats
+    protected PerformanceStats stats = new PerformanceStats();
+
+    public PerformanceStats getStats() { return stats; }
+    // public void addPerformance(HorsePerformance perf, boolean win, int newConfidence) {
+    //     HorsePerformance hperf = new HorsePerformance(perf.getRaceDate(), perf.getTrackName(), perf.getTrackCondition(), perf.getFinishingTime(), this);
+    // }
     
       
     //Constructor of class Horse
@@ -132,6 +140,10 @@ public class Horse
     
     // accessor method to get confidence
     public double getConfidence() { return this.horseConfidence; }
+
+    public void addConfidence(double c) {
+        horseConfidence += c;
+    }
     
     // accessor method to get distance travelled
     public int getDistanceTravelled() { 

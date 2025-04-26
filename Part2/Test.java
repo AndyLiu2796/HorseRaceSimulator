@@ -2,6 +2,7 @@ package Part2;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.*;
 
 public class Test {
     public static void main(String[] args) {
@@ -20,6 +21,7 @@ public class Test {
         JMenuBar menuBar = new JMenuBar();
         JMenu menu = new JMenu("Options");
         JMenuItem openHorsePanelItem = new JMenuItem("Open Horse Panel");
+        JMenuItem openStatisticsItem = new JMenuItem("Open Statistics");
         menu.add(openHorsePanelItem);
         menuBar.add(menu);
         frame.setJMenuBar(menuBar);
@@ -32,6 +34,20 @@ public class Test {
             horseFrame.setVisible(true);
         });
 
+        menu.add(openStatisticsItem);
+        openStatisticsItem.addActionListener(e -> {
+            Map<String, PerformanceStats> horseStatsMap = new HashMap<>();
+            for (Horse h : race.returnLanes()) {
+                if (h != null) {
+                    horseStatsMap.put(h.getName(), h.getStats());
+                }
+            }
+
+            StatisticsFrame sframe = new StatisticsFrame(horseStatsMap);
+            sframe.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            sframe.setSize(400, 400);
+            sframe.setVisible(true);
+        });
         TrackPanel trackPanel = new TrackPanel(race, racePanel);
         frame.add(trackPanel, BorderLayout.NORTH);
         JButton refreshButton = new JButton("Refresh");

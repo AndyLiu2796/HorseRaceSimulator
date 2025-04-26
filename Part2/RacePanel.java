@@ -73,6 +73,7 @@ public class RacePanel extends JPanel{
         }
         JTextField jtf = new JTextField();
         jtf.setPreferredSize(new Dimension(race.getTrackLength()*15, jtf.getPreferredSize().height));
+        jtf.setMaximumSize(new Dimension(race.getTrackLength()*15, jtf.getPreferredSize().height));
         if (!race.checkLosers()) {
             jtf.setText("No winners");
         }

@@ -19,7 +19,7 @@ public class TrackPanel extends JPanel {
 
         // third row - Track Shape
         add(new JLabel("Track Shape: "));
-        JComboBox<String> shapeSelector = new JComboBox<>(new String[]{"Oval", "Figure-Eight", "Circular", "Others TBC"});
+        JComboBox<String> shapeSelector = new JComboBox<>(new String[]{"Straight", "Oval", "Figure-Eight", "Circular"});
         add(shapeSelector);
 
         // four row - Track Weather

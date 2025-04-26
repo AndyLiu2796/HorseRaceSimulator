@@ -5,14 +5,13 @@ public class HorsePerformance {
     private String trackName;
     private String trackCondition;
     private double finishingTime;
-    private Horse horse;
+    private boolean fell;
 
     public HorsePerformance(String raceDate, String trackName, String trackCondition, double finishingTime, Horse horse) {
         this.raceDate = raceDate;
         this.trackName = trackName;
         this.trackCondition = trackCondition;
         this.finishingTime = finishingTime;
-        this.horse = horse;
     }
 
     public String getRaceDate() {
@@ -27,8 +26,8 @@ public class HorsePerformance {
     public double getFinishingTime() {
         return finishingTime;
     }
-    public Horse getHorse() {
-        return horse;
+    public boolean isFell() {
+        return fell;
     }
 
     public void setRaceDate(String raceDate) {
@@ -43,8 +42,9 @@ public class HorsePerformance {
     public void setFinishingTime(double finishingTime) {
         this.finishingTime = finishingTime;
     }
-    public void setHorse(Horse horse) {
-        this.horse = horse;
+    public void setFell(boolean fell) {
+        this.fell = fell;
     }
-    
+
+
 }
