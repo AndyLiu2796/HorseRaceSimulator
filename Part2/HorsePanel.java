@@ -75,7 +75,7 @@ public class HorsePanel extends JPanel {
         JButton addHorseButton = new JButton("Add Horse");
         addHorseButton.addActionListener(e -> {
             String name = horseNameField.getText();
-            char symbol = Filter.oneCharOnly(horseSymbolField.getText());
+            String symbol = Filter.firstSymbol(horseSymbolField.getText());
             double confidence = Double.parseDouble(horseConfidenceField.getText());
             String breed = (String) horseBreedSelector.getSelectedItem();
             String coatColor = (String) horseColorSelector.getSelectedItem();

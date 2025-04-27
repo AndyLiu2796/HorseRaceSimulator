@@ -14,8 +14,8 @@ public class Test {
         frame.setLayout(new BorderLayout());
         frame.add(racePanel, BorderLayout.CENTER);
         frame.add(new JTextField("Statistics"), BorderLayout.SOUTH);
-        Horse h1 = new Horse('@', "Horse 1", 0.9);
-        race.addHorse(h1);
+        // Horse h1 = new Horse("@", "Horse 1", 0.9);
+        // race.addHorse(h1);
         HorsePanel horsePanel = new HorsePanel(race, racePanel);
 
         JMenuBar menuBar = new JMenuBar();

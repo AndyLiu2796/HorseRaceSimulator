@@ -13,7 +13,7 @@ public class Horse
 {
     //Fields of class Horse
     private String horseName; // need encapsultion so might need private for the 5 attribute
-    private char horseSymbol;
+    private String horseSymbol;
     private int horseDistance = 0;
     private double horseConfidence;
     private boolean horseFallen = false;
@@ -49,7 +49,7 @@ public class Horse
     //     this.coatColor = coatColor;
     //     this.accessories = accessories;
     // }
-    public Horse(char horseSymbol, String horseName, double horseConfidence, String breed, String coatColor, String accessories, String horseshoes, String saddle) {
+    public Horse(String horseSymbol, String horseName, double horseConfidence, String breed, String coatColor, String accessories, String horseshoes, String saddle) {
         this.horseSymbol = horseSymbol;
         this.horseName = horseName;
         setConfidence(horseConfidence);
@@ -108,16 +108,16 @@ public class Horse
     }
 
     // Constructor with parameters
-    public Horse(char horseSymbol, String horseName, double horseConfidence)
+    public Horse(String horseSymbol, String horseName, double horseConfidence)
     {
-        this.horseSymbol = horseSymbol;
+        this.horseSymbol = Filter.firstSymbol(horseSymbol);
         this.horseName = horseName;
         setConfidence(horseConfidence);
     }
     
     // not even sure will this work <--- check this HELLO
     public Horse () {
-        this.horseSymbol = '\u0000';
+        this.horseSymbol = "";
         this.horseName = "";
         this.horseConfidence = -1;
     }
@@ -161,7 +161,7 @@ public class Horse
     public void setName(String horseName) { this.horseName = horseName;}
     
     // accessor method to get symbol
-    public char getSymbol() { return this.horseSymbol; }
+    public String getSymbol() { return this.horseSymbol; }
     
     // mutator method to reset distance
     public void goBackToStart() { this.horseDistance = 0; }
@@ -190,9 +190,9 @@ public class Horse
     }
     
     // mutator method to set symbol
-    public void setSymbol(char newSymbol)
+    public void setSymbol(String newSymbol)
     {
-        this.horseSymbol = newSymbol;
+        this.horseSymbol = Filter.firstSymbol(newSymbol);
     }
 
     // accessor method for breed
