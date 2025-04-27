@@ -3,6 +3,7 @@ import java.util.concurrent.TimeUnit;
 import java.lang.Math;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 /**
  * A three-horse race, each horse running in its own lane
@@ -76,63 +77,81 @@ public class Race
      */
     public void startRace()
     {
+        Scanner scanner = new Scanner(System.in);
+        boolean repeat = true;
+
         //declare a local variable to tell us when the race is finished
         boolean finished = false;
-        
-        //reset all the lanes (all horses not fallen and back to 0). 
-        for (Horse h : lanes) {
-            h.goBackToStart();
-        }
-
-        while (!finished)
-        {
-            //move each horse
+        while (repeat) {
+            finished = false;
+            //reset all the lanes (all horses not fallen and back to 0). 
             for (Horse h : lanes) {
-                moveHorse(h);
+                h.goBackToStart();
+                h.getUp(); // reset the horse's fallen status
             }
-            // moveHorse(lane1Horse);
-            // moveHorse(lane2Horse);
-            // moveHorse(lane3Horse);
-                        
-            //print the race positions
-            printRace();
-            
-            //if any of the three horses has won the race is finished
-            for (Horse h: lanes) {
-                if (raceWonBy(h)) {
-                    finished = true;
-                    break;
-                }
-            }
-            // if ( raceWonBy(lane1Horse) || raceWonBy(lane2Horse) || raceWonBy(lane3Horse) )
-            // {
-            //     finished = true;
-                
-            // }
-            if (!checkLosers()) {
-                finished = true;
-                System.out.println("All horses have fallen!");
-            }
-           
-            //wait for 100 milliseconds
-            try{ 
-                TimeUnit.MILLISECONDS.sleep(100);
-                // TimeUnit.MILLISECONDS.sleep(16); // lemme test if this makes it 60fps
-            }catch(Exception e){}
 
+            while (!finished)
+            {
+                //move each horse
+                for (Horse h : lanes) {
+                    moveHorse(h);
+                }
+                // moveHorse(lane1Horse);
+                // moveHorse(lane2Horse);
+                // moveHorse(lane3Horse);
+                            
+                //print the race positions
+                printRace();
+                
+                //if any of the three horses has won the race is finished
+                for (Horse h: lanes) {
+                    if (raceWonBy(h)) {
+                        finished = true;
+                        break;
+                    }
+                }
+                // if ( raceWonBy(lane1Horse) || raceWonBy(lane2Horse) || raceWonBy(lane3Horse) )
+                // {
+                //     finished = true;
+                    
+                // }
+                if (!checkLosers()) {
+                    finished = true;
+                    System.out.println("All horses have fallen!");
+                }
+            
+                //wait for 100 milliseconds
+                try{ 
+                    TimeUnit.MILLISECONDS.sleep(100);
+                    // TimeUnit.MILLISECONDS.sleep(16); // lemme test if this makes it 60fps
+                }catch(Exception e){}
+
+            }
+            // print the winners
+            if (getWinners().size() == 0) {
+                System.out.println("No winners!");
+            }
+            else if (getWinners().size() == 1) {
+                System.out.print("Winner: ");
+                System.out.println(getWinners().get(0) + " won!");
+            }
+            else {
+                System.out.print("Winners: ");
+                System.out.println(String.join(" + ", getWinners()) + " won!");
+            }
+            // ask if the user wants to repeat the game
+            System.out.println("Do you want to repeat the game? (y/n)");
+            String input = scanner.nextLine().trim().toLowerCase();
+            while (!input.equals("y") && !input.equals("n")) {
+                System.out.println("Invalid input. Please enter 'y' or 'n'.");
+                input = scanner.nextLine().trim().toLowerCase();
+            }
+
+            if (input.equals("n")) {
+                repeat = false;
+            }
         }
-        // print the winners
-        if (getWinners().size() == 0) {
-            System.out.println("No winners!");
-        }
-        else if (getWinners().size() == 1) {
-            System.out.print("Winner: ");
-            System.out.println(getWinners().get(0) + " won!");
-        }
-        else {
-            System.out.print("Winners: ");
-            System.out.println(String.join(" + ", getWinners()) + " won!");
-        }
+        
     }
 
     /**
@@ -174,6 +193,10 @@ public class Race
     {
         if (theHorse.getDistanceTravelled() >= raceLength)
         {
+            if (theHorse.getConfidence() < 0.85) {
+                theHorse.setConfidence(theHorse.getConfidence() + 0.1);
+            }
+             // increase confidence by 0.1
             return true;
         }
         else

@@ -40,8 +40,10 @@ public class Horse
     public void fall()
     {
         this.horseFallen = true;
-        this.horseConfidence -= 0.1; // AS DISCUSSED IN GROUP, THIS IS UNSURE WHETHER WHICH PART NEEDS THIS BUT DOESNT RELOADING CODE RESET IT?
+        this.setConfidence(horseConfidence - 0.1);
     }
+
+
     
     // accessor method to get confidence
     public double getConfidence()
@@ -74,9 +76,18 @@ public class Horse
     }
     
     // accessor method to get horseFallen status
-    public boolean hasFallen()
+    public boolean hasFallen() 
     {
         return this.horseFallen;
+    }
+
+    public void getUp()
+    {
+        this.horseFallen = false;
+        if (this.horseConfidence < 0.1)
+        {
+            this.horseConfidence = 0.1; // just in case
+        }
     }
 
     // mutator method to move horse forward by 1(default)
@@ -88,14 +99,7 @@ public class Horse
     // mutator method to set confidence with a given value
     public void setConfidence(double newConfidence)
     {
-        if (newConfidence <= 1.0 && newConfidence >= 0.0)
-        {
-            this.horseConfidence = newConfidence;
-        }
-        else
-        {
-            throw new IllegalArgumentException("Confidence should be between 0.0 and 1.0");
-        }
+        this.horseConfidence = Math.max(0.0, Math.min(newConfidence, 1.0));
     }
     
     // mutator method to set symbol

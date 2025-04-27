@@ -12,4 +12,11 @@ public class Test {
         
         r.startRace();
     }
+
+    public static void testMoveForward() {
+        Horse h = new Horse('a', "TestHorse", 0.5);
+        System.out.println("Initial distance: " + h.getDistanceTravelled());
+        h.moveForward();
+        System.out.println("Distance after moving forward: " + h.getDistanceTravelled());
+    }
 }
