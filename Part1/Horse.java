@@ -24,10 +24,10 @@ public class Horse
     {
         this.horseSymbol = horseSymbol;
         this.horseName = horseName;
-        this.horseConfidence = horseConfidence;
+        this.setConfidence(horseConfidence);
     }
     
-    // not even sure will this work <--- check this HELLO
+    // overload constructor
     public Horse () {
         this.horseSymbol = '\u0000';
         this.horseName = "";
@@ -43,8 +43,6 @@ public class Horse
         this.setConfidence(horseConfidence - 0.1);
     }
 
-
-    
     // accessor method to get confidence
     public double getConfidence()
     {
@@ -84,10 +82,7 @@ public class Horse
     public void getUp()
     {
         this.horseFallen = false;
-        if (this.horseConfidence < 0.1)
-        {
-            this.horseConfidence = 0.1; // just in case
-        }
+        setConfidence(this.horseConfidence);
     }
 
     // mutator method to move horse forward by 1(default)
