@@ -1,6 +1,7 @@
 package Part2;
 import java.util.concurrent.TimeUnit;
 
+import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 
 import java.lang.Math;
@@ -61,6 +62,23 @@ public class Race
         lanes.clear(); //reset arraylist just in casse of previous effect
         for (int i = 0; i < this.laneNumber; i++) {
             lanes.add(null);
+        }
+    }
+
+    public void safeSetLaneNumber(int laneNumber) { // IM THINKING LIKE USING THIS TO REMOVE THE PART IN CONSTRUCTOR
+        this.laneNumber = laneNumber;
+        List<Horse> oldHorses = new ArrayList<>(lanes); // make a copy of the old horses
+        lanes.clear(); //reset arraylist just in casse of previous effect
+        for (int i = 0; i < this.laneNumber; i++) {
+            lanes.add(null);
+        }
+        for (int i = 0; i < oldHorses.size(); i++) {
+            if (i < this.laneNumber) {
+                lanes.set(i, oldHorses.get(i)); // add the old horse to the new lane
+            }
+        }
+        if (oldHorses.size() > this.laneNumber) {
+            JOptionPane.showMessageDialog(null, "There are more horses than lanes. Some horses will be removed.", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
     public void setWeather(String weather) {

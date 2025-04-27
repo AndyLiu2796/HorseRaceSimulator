@@ -41,8 +41,25 @@ public class TrackPanel extends JPanel {
             race.setTrackShape(shape);
             race.setWeather(weather);
             confirmButton.setText("Reset");
+            // try har
+            racePanel.UpdateScreen();
         });
         add(confirmButton);
+
+        JButton refreshButton = new JButton("Refresh");
+        refreshButton.addActionListener(e -> {
+            int lanes = Integer.parseInt(lanesInput.getText()); // I DONT THINK IT CAN PARSE NON-NUMERICAL STRING INTO INT BUT DO THIS FOR NOW
+            int trackLength = Integer.parseInt(trackLengthInput.getText()); // SAME AS ABOVE
+            String shape = (String) shapeSelector.getSelectedItem();
+            String weather = (String) WeatherSelector.getSelectedItem();
+            race.safeSetLaneNumber(lanes);
+            race.setTrackLength(trackLength);
+            race.setTrackShape(shape);
+            race.setWeather(weather);
+            racePanel.UpdateScreen();
+            refreshButton.setText("Refresh(Preserve Horses)");
+        });
+        add(refreshButton);
     }
 }
 
