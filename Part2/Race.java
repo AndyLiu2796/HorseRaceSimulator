@@ -23,10 +23,15 @@ public class Race
     private int laneNumber;
     private List<Horse> lanes = new ArrayList<>();
 
+    // try this
+    // RaceBet raceBet = new RaceBet(this);
+
 
     // extra fields
-    private String trackShape = "Oval"; // default track shape others are like figure eight and circular i want a straight
+    private String trackShape = "Straight"; // default track shape others are like figure eight and circular i want a straight
     private String weather = "Dry"; // default track surface others are like muddy icy rainy
+
+    private double totalIncome = 0.0;
 
     /**
      * Constructor for objects of class Race
@@ -168,13 +173,13 @@ public class Race
      * then repeatedly moved forward until the 
      * race is finished
      */
-    public void startRace(RacePanel rp)
+    public void startRace(RacePanel rp, RaceBet rb)
     {
 
         //declare a local variable to tell us when the race is finished
         boolean finished = false;
         long raceStartTime = System.currentTimeMillis();
-        long raceEndTime = 0; // Initialize with a default value
+        long raceEndTime = 0; // Initialize with a default valu
 
         
         //reset all the lanes (all horses not fallen and back to 0). 
@@ -239,6 +244,8 @@ public class Race
         // }
         double raceDuration = ((double)(raceEndTime - raceStartTime)) / 1000.0; // in seconds
         addRecord();
+        rb.archiveResult();
+        JOptionPane.showMessageDialog(null, "Net Balance: " + totalIncome);
     }
 
     public void addRecord () {
@@ -374,7 +381,7 @@ public class Race
      * @param theHorse The horse we are testing
      * @return true if the horse has won, false otherwise.
      */
-    private boolean raceWonBy(Horse theHorse)
+    public boolean raceWonBy(Horse theHorse)
     {
         if (theHorse.getDistanceTravelled() >= raceLength && theHorse != null)
         {
@@ -497,4 +504,16 @@ public class Race
     public ArrayList<Horse> returnLanes () {
         return new ArrayList<>(lanes);
     }
+
+    public double getTotalIncome() {
+        return totalIncome;
+    }
+
+    public void setTotalIncome(double totalIncome) {
+        this.totalIncome += totalIncome;
+    }
+
+    // public RaceBet getRaceBet() {
+    //     return raceBet;
+    // }
 }

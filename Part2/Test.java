@@ -9,6 +9,7 @@ public class Test {
         Race race = new Race(30,0);
         RacePanel racePanel = new RacePanel(race);
         JFrame frame = new JFrame("Horse Race Simulator");
+        final RaceBet[] currentRaceBet = new RaceBet[1];
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(1000, 1000);
         frame.setLayout(new BorderLayout());
@@ -22,6 +23,7 @@ public class Test {
         JMenu menu = new JMenu("Options");
         JMenuItem openHorsePanelItem = new JMenuItem("Open Horse Panel");
         JMenuItem openStatisticsItem = new JMenuItem("Open Statistics");
+        JMenuItem openBettingItem = new JMenuItem("Open Betting");
         menu.add(openHorsePanelItem);
         menuBar.add(menu);
         frame.setJMenuBar(menuBar);
@@ -48,6 +50,14 @@ public class Test {
             sframe.setSize(400, 400);
             sframe.setVisible(true);
         });
+
+        menu.add(openBettingItem);
+        openBettingItem.addActionListener(e -> {
+            RaceBet raceBet = new RaceBet(race);
+            currentRaceBet[0] = raceBet;
+            BettingFrame bf = new BettingFrame(raceBet, race);
+            bf.setVisible(true);
+        });
         TrackPanel trackPanel = new TrackPanel(race, racePanel);
         frame.add(trackPanel, BorderLayout.NORTH);
         JButton refreshButton = new JButton("Refresh");
@@ -59,7 +69,12 @@ public class Test {
         JButton startButton = new JButton("Start");
         startButton.addActionListener(e -> {
             new Thread(() -> {
-                race.startRace(racePanel);
+                if (currentRaceBet[0] != null) {
+                    race.startRace(racePanel, currentRaceBet[0]);
+                }
+                else {
+                    race.startRace(racePanel, new RaceBet(race));
+                }
             }).start();;
             startButton.setText("Reset");
         });
