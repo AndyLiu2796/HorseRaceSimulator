@@ -6,12 +6,14 @@ public class HorsePerformance {
     private String trackCondition;
     private double finishingTime;
     private boolean fell;
+    private Horse h;
 
     public HorsePerformance(String raceDate, String trackName, String trackCondition, double finishingTime, Horse horse) {
         this.raceDate = raceDate;
         this.trackName = trackName;
         this.trackCondition = trackCondition;
         this.finishingTime = finishingTime;
+        this.h = horse;
     }
 
     public String getRaceDate() {
@@ -44,6 +46,12 @@ public class HorsePerformance {
     }
     public void setFell(boolean fell) {
         this.fell = fell;
+    }
+
+    // Overiding cuz the default method only returns hashcode or something like reference
+    @Override
+    public String toString() {
+        return "Name: " + h.getName() + ", Date: " + raceDate + ", Track: " + trackName + ", Condition: " + trackCondition + ", Time: " + finishingTime;
     }
 
 

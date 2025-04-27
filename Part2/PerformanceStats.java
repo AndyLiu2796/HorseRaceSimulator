@@ -29,7 +29,7 @@ public class PerformanceStats {
         }
         String matchkey = perf.getTrackName() + perf.getTrackCondition();
         // bestTimeperTrack.merge(matchkey, perf.getFinishingTime(), Math::min);
-        bestTimeperTrack.merge(matchkey, perf.getFinishingTime(), Math::min);
+        bestTimeperTrack.merge(matchkey, bestTime, Math::min);
         // Update the confidence list
         confidenceList.add(h.getConfidence());  
 
