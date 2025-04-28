@@ -94,21 +94,21 @@ public class RaceBet {
         } 
     }
 
-    public void getNetIncome() {
-        for (HorseBet hb : getHorseBets()) {
-            if (hb.getHorse() != null) {
-                if (race.raceWonBy(hb.getHorse())) {
-                    double newIncome = race.getTotalIncome() + (hb.getBetAmount() * hb.getOdds());
-                    race.setTotalIncome(newIncome);
-                    JOptionPane.showMessageDialog(null, "Net income for " + hb.getHorse().getName() + " is: " + race.getTotalIncome());
-                } else {
-                    double newIncome = race.getTotalIncome() - hb.getBetAmount();
-                    race.setTotalIncome(newIncome);
-                    JOptionPane.showMessageDialog(null, "Net income for " + hb.getHorse().getName() + " is: " + race.getTotalIncome());
-                }
-            }
-        }
-    }
+    // public void getNetIncome() {
+    //     for (HorseBet hb : getHorseBets()) {
+    //         if (hb.getHorse() != null) {
+    //             if (race.raceWonBy(hb.getHorse())) {
+    //                 double newIncome = race.getTotalIncome() + (hb.getBetAmount() * hb.getOdds());
+    //                 race.setTotalIncome(newIncome);
+    //                 JOptionPane.showMessageDialog(null, "Net income for " + hb.getHorse().getName() + " is: " + race.getTotalIncome());
+    //             } else {
+    //                 double newIncome = race.getTotalIncome() - hb.getBetAmount();
+    //                 race.setTotalIncome(newIncome);
+    //                 JOptionPane.showMessageDialog(null, "Net income for " + hb.getHorse().getName() + " is: " + race.getTotalIncome());
+    //             }
+    //         }
+    //     }
+    // }
 
     //overload method
     public double returnIncome() {
@@ -128,6 +128,7 @@ public class RaceBet {
     public void archiveResult() {
         PerMatchBetRecord record = new PerMatchBetRecord(totalBetAmount, returnIncome());
         matchIncomes.add(record);
+        totalBetAmount = 0; // reset or else the betamount adds up every match
     }
 
     public List<PerMatchBetRecord> getMatchIncomes() {

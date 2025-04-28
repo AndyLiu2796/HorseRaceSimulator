@@ -49,12 +49,14 @@ public class BettingFrame extends JFrame{
         top.add(betAmountField);
         top.add(refreshButton);
 
-        JPanel center = new JPanel(new GridLayout(1,2));
+        JPanel center = new JPanel(new GridLayout(1,3));
         List<HorseBet> horseBetsList = new ArrayList<>(raceBet.getHorseBets());
         oddsLabel = new JLabel();
         confirmBetButton = new JButton("Confirm Bet");
         center.add(oddsLabel);
         center.add(confirmBetButton);
+        JButton showStatsButton = new JButton("Show Stats");
+        center.add(showStatsButton);
 
         live = new JTextArea();
         live.setEditable(false);
@@ -64,6 +66,16 @@ public class BettingFrame extends JFrame{
             updateRealTimeBet();
         });
         confirmBetButton.addActionListener(e -> addBet());
+
+        showStatsButton.addActionListener(e -> {
+            StringBuilder sb = new StringBuilder();
+            for (HorseBet hb : horseBetsList) {
+                sb.append(hb.getHorse().getName() + " Odds: " + String.format("%.2f", hb.getOdds()) + "\n");
+                sb.append(hb.getHorse().getName() + " Amount: " + hb.getBetAmount() + "\n");
+                sb.append("Net: " + race.getTotalIncome() + "\n");
+            }
+            JOptionPane.showMessageDialog(this, sb.toString(), "Betting Stats", JOptionPane.INFORMATION_MESSAGE);
+        });
         
         add(top, BorderLayout.NORTH);
         add(center, BorderLayout.CENTER);

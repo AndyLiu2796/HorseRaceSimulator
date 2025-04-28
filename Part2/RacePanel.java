@@ -188,7 +188,7 @@ public class RacePanel extends JPanel{
         for (int i = 0; i <race.getLaneNumber(); i++) {
             int y = 50+i*50;
             g.setColor(returnTrackColor());
-            g.drawLine(50,y, 50+race.getTrackLength(),y);
+            g.drawLine(50,y, 50+race.getTrackLength()*10,y);
         }
     }
 
@@ -199,7 +199,13 @@ public class RacePanel extends JPanel{
                 int y = 50+count*50;
                 double relativePos = (double) h.getDistanceTravelled() / race.getTrackLength();
                 g.setColor(returnHorseColor(h));
-                g.drawString(h.getSymbol(), (int)(50 + relativePos*race.getTrackLength() - 5), y-5);
+                if (!h.hasFallen()) {
+                    g.drawString(h.getSymbol(), (int)(50 + relativePos*race.getTrackLength()*10 - 5), y-5);
+                }
+                else {
+                    g.drawString("❌", (int)(50 + relativePos*race.getTrackLength()*10 - 5), y-5);
+                }
+                
 
             }
             count++;
@@ -229,7 +235,12 @@ public class RacePanel extends JPanel{
                 int radius = smallestRadius + i * 50;
                 double angle = relativePos * 2 * Math.PI - Math.PI/2; // the minus part so it starts from top
                 g.setColor(returnHorseColor(h));
-                g.drawString(h.getSymbol(), (int)(midX + radius * Math.cos(angle) - 5), (int)(midY + radius * Math.sin(angle) - 5));
+                if (!h.hasFallen()) {
+                    g.drawString(h.getSymbol(), (int)(midX + radius * Math.cos(angle) - 5), (int)(midY + radius * Math.sin(angle) - 5));
+                }
+                else {
+                    g.drawString("❌", (int)(midX + radius * Math.cos(angle) - 5), (int)(midY + radius * Math.sin(angle) - 5));
+                }
             }
         }
     }
@@ -259,7 +270,12 @@ public class RacePanel extends JPanel{
                 int radiusY = smallestRadius + i * 25;
                 double angle = relativePos * 2 * Math.PI - Math.PI/2; // start top
                 g.setColor(returnHorseColor(h));
-                g.drawString(h.getSymbol(), (int)(midX + radiusX * Math.cos(angle) - 5), (int)(midY + radiusY * Math.sin(angle) - 5));
+                if (!h.hasFallen()) {
+                    g.drawString(h.getSymbol(), (int)(midX + radiusX * Math.cos(angle) - 5), (int)(midY + radiusY * Math.sin(angle) - 5));
+                }
+                else {
+                    g.drawString("❌", (int)(midX + radiusX * Math.cos(angle) - 5), (int)(midY + radiusY * Math.sin(angle) - 5));
+                }
             } 
             
         }
@@ -301,7 +317,12 @@ public class RacePanel extends JPanel{
                     y = (int)(midY - radius * Math.sin(angle) - 5);
                 }
                 g.setColor(returnHorseColor(h));
-                g.drawString(h.getSymbol(), x-5, y-5);
+                if (!h.hasFallen()) {
+                    g.drawString(h.getSymbol(), x-5, y-5);
+                }
+                else {
+                    g.drawString("❌", x-5, y-5);
+                }
             }
 
         }

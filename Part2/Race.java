@@ -245,6 +245,7 @@ public class Race
         double raceDuration = ((double)(raceEndTime - raceStartTime)) / 1000.0; // in seconds
         addRecord();
         rb.archiveResult();
+        totalIncome += rb.returnIncome();
         JOptionPane.showMessageDialog(null, "Net Balance: " + totalIncome);
     }
 
