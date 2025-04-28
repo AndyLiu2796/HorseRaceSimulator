@@ -12,7 +12,7 @@ public class StatisticsFrame extends JFrame{
     public StatisticsFrame(Map<String, PerformanceStats> horseStatsMap) {
         this.horseStatsMap = horseStatsMap;
         setTitle("Horse Racing Statistics");
-        setSize(1000, 1000);
+        setSize(2000, 1000);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
 
