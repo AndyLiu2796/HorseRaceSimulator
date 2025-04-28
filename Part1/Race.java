@@ -26,10 +26,19 @@ public class Race
     public Race(int distance, int numLanes)
     {
         // initialise instance variables
-        raceLength = distance;
-        for (int i = 0; i < numLanes; i++) {
-            lanes.add(null);
+        if (distance > 0 && numLanes > 0) {
+            raceLength = distance;
+            for (int i = 0; i < numLanes; i++) {
+                lanes.add(null);
+            }
+        } else {
+            System.out.println("Invalid distance or number of lanes. Setting default values.");
+            raceLength = 10; // default distance
+            for (int i = 0; i < 3; i++) {
+                lanes.add(null);
+            }
         }
+        
     }
     // {
     //     // initialise instance variables
@@ -86,15 +95,20 @@ public class Race
             finished = false;
             //reset all the lanes (all horses not fallen and back to 0). 
             for (Horse h : lanes) {
-                h.goBackToStart();
-                h.getUp(); // reset the horse's fallen status
+                if (h != null) {
+                    h.goBackToStart();
+                    h.getUp(); // reset the horse's fallen status
+                }
+                
             }
 
             while (!finished)
             {
                 //move each horse
                 for (Horse h : lanes) {
-                    moveHorse(h);
+                    if (h != null) {
+                        moveHorse(h);
+                    }
                 }
                 // moveHorse(lane1Horse);
                 // moveHorse(lane2Horse);
@@ -105,7 +119,7 @@ public class Race
                 
                 //if any of the three horses has won the race is finished
                 for (Horse h: lanes) {
-                    if (raceWonBy(h)) {
+                    if (h!=null && raceWonBy(h)) {
                         finished = true;
                         break;
                     }
@@ -193,9 +207,7 @@ public class Race
     {
         if (theHorse.getDistanceTravelled() >= raceLength)
         {
-            if (theHorse.getConfidence() < 0.85) {
-                theHorse.setConfidence(theHorse.getConfidence() + 0.1);
-            }
+            theHorse.setConfidence(theHorse.getConfidence() + 0.1);
              // increase confidence by 0.1
             return true;
         }
@@ -208,7 +220,7 @@ public class Race
     public ArrayList<String> getWinners() {
         ArrayList<String> winners = new ArrayList<>();
         for (Horse h : lanes) {
-            if (raceWonBy(h)) {
+            if (h != null && raceWonBy(h)) {
                 winners.add(h.getName());
             }
         }
@@ -219,8 +231,10 @@ public class Race
     // It returns false when all fallen
     public boolean checkLosers() {
         for (Horse h : lanes) {
-            if (!h.hasFallen()) {
-                return true; // at least one not fallen
+            if (h != null) {
+                if (!h.hasFallen()) {
+                    return true; // at least one not fallen
+                }
             }
         }
         return false; // all horses have fallen
@@ -237,8 +251,18 @@ public class Race
         System.out.println();
         
         for (Horse h : lanes) {
-            printLane(h);
-            System.out.println();
+            if (h != null) {
+                printLane(h);
+                System.out.println();
+            }
+            else {
+                // print empty lane
+                System.out.print('|');
+                multiplePrint(' ', raceLength+2);
+                System.out.print("| ");
+                System.out.println("EMPTY LANE");
+            }
+            
         }
         
         multiplePrint('=',raceLength+3); //bottom edge of track
@@ -268,11 +292,11 @@ public class Race
         //else print the horse's symbol
         if(theHorse.hasFallen())
         {
-            System.out.print('\u2322');
+            System.out.print(String.format("%-2s", String.valueOf('\u2322')));
         }
         else
         {
-            System.out.print(theHorse.getSymbol());
+            System.out.print(String.format("%-2s", String.valueOf(theHorse.getSymbol())));
         }
         
         //print the spaces after the horse
