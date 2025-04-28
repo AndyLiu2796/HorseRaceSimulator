@@ -5,6 +5,10 @@ import java.awt.*;
 import java.util.*;
 
 public class RaceGUI {
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(RaceGUI::startRaceGUI);
+    }
+    
     public static void startRaceGUI() {
         Race race = new Race(30,0);
         RacePanel racePanel = new RacePanel(race);
@@ -24,6 +28,8 @@ public class RaceGUI {
         JMenuItem openHorsePanelItem = new JMenuItem("Open Horse Panel");
         JMenuItem openStatisticsItem = new JMenuItem("Open Statistics");
         JMenuItem openBettingItem = new JMenuItem("Open Betting");
+        JMenuItem openHorseStatsItem = new JMenuItem("Open Horse Stats");
+        menu.add(openHorseStatsItem);
         menu.add(openHorsePanelItem);
         menuBar.add(menu);
         frame.setJMenuBar(menuBar);
@@ -34,6 +40,9 @@ public class RaceGUI {
             horseFrame.setLayout(new BorderLayout());
             horseFrame.add(horsePanel, BorderLayout.CENTER);
             horseFrame.setVisible(true);
+        });
+        openHorseStatsItem.addActionListener(e -> {
+            HorseStatsOption h1 = new HorseStatsOption(race.returnLanes());
         });
 
         menu.add(openStatisticsItem);
@@ -47,7 +56,7 @@ public class RaceGUI {
 
             StatisticsFrame sframe = new StatisticsFrame(horseStatsMap);
             sframe.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-            sframe.setSize(400, 400);
+            sframe.setSize(1000, 400);
             sframe.setVisible(true);
         });
 
