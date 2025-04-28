@@ -1,10 +1,11 @@
 package Part1;
 public class Test {
     public static void main (String[] args) {
-        testMove();
-        testFall();
-        testConfidenceUpperBound();
-        testConfidenceLowerBound();
+        // UNCOMMENT IF U WANT TO TRY THESE TEST METHODS YOURSELF
+        // testMove();
+        // testFall();
+        // testConfidenceUpperBound();
+        // testConfidenceLowerBound();
         race();
         
     }
