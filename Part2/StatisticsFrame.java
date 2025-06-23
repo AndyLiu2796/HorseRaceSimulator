@@ -4,11 +4,24 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.*;
 
+/**
+ * 
+ * @author Ho Ming, Liu
+ * @version 2.0
+ */
+
+ /**
+  * StatisticsFrame class
+  * This method initializes the frame of the Horse's performance
+  */
 public class StatisticsFrame extends JFrame{
     private JComboBox<String> horseList;
     private JTextArea singleRaceArea, overallRaceArea, trackArea, historyArea;
     private Map<String, PerformanceStats> horseStatsMap;
 
+    /*
+     * @param horsStatsMap - a hashmap where key is String of horseName and value is the PerformanceStats
+     */
     public StatisticsFrame(Map<String, PerformanceStats> horseStatsMap) {
         this.horseStatsMap = horseStatsMap;
         setTitle("Horse Racing Statistics");
@@ -43,6 +56,8 @@ public class StatisticsFrame extends JFrame{
         updateStatistics();
     }
 
+    // This method update Statistics frame visually when called
+    //
     private void updateStatistics() {
         String selectedHorse = (String) horseList.getSelectedItem();
         PerformanceStats stats = horseStatsMap.get(selectedHorse);
@@ -66,6 +81,5 @@ public class StatisticsFrame extends JFrame{
         for (HorsePerformance perf : (ArrayList<HorsePerformance>) stats.getHorsePerformances()) {
             historyArea.append(perf.toString() + "\n");
         }
-    }
-
+    } // END updateStatistics
 }

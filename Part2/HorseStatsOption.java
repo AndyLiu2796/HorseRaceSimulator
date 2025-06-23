@@ -3,6 +3,13 @@ package Part2;
 import java.util.List;
 import javax.swing.*;
 
+/**
+ * 
+ * @author Ho Ming Liu
+ * @version 23 April 2024
+ * HorseStatsOption class 
+ * This is the class responsbile for panelon an individual horse
+ */
 public class HorseStatsOption extends JFrame{
     private JComboBox<Horse> horseComboBox;
     private List<Horse> horseList;

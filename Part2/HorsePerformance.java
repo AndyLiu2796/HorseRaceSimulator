@@ -1,5 +1,12 @@
 package Part2;
 
+/**
+ * 
+ * @author Ho Ming Liu
+ * @version 23 April 2024
+ * HorsePerformance class 
+ * This is the class responsbile for oerformance on an individual horse in one race
+ */
 public class HorsePerformance {
     private String raceDate;
     private String trackName;
@@ -15,6 +22,10 @@ public class HorsePerformance {
         this.finishingTime = finishingTime;
         this.h = horse;
     }
+
+    /*
+     * mutator and accessor methods for HorsePerformance
+     */
 
     public String getRaceDate() {
         return raceDate;

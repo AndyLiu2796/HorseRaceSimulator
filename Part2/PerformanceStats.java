@@ -2,6 +2,14 @@ package Part2;
 
 import java.util.*;
 
+/**
+ * 
+ * @author Ho Ming Liu
+ * @version 23 April 2024
+ * HorseBet class 
+ * This is the class responsbile for all performance stats on a horse
+ */
+
 public class PerformanceStats {
     private int totalMatch;
     private int wins;
@@ -16,6 +24,8 @@ public class PerformanceStats {
         this.bestTime = Double.MAX_VALUE; // Initialize to a large value
     }
 
+    // This method adds performance to the list of performances
+    //
     public void addPerformance(HorsePerformance perf, boolean win, Horse h) {
         hperf.add(perf);
         totalMatch++;
@@ -32,9 +42,11 @@ public class PerformanceStats {
         bestTimeperTrack.merge(matchkey, bestTime, Math::min);
         // Update the confidence list
         confidenceList.add(h.getConfidence());  
+    } // END addPerformance
 
-
-    }
+    /*
+     * Mutator and Accessor methods
+    */
 
     public List getHorsePerformances() {
         return this.hperf;

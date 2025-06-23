@@ -3,31 +3,15 @@ package Part2;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * 
+ * @author Ho Ming Liu
+ * @version 23 April 2024
+ * HorsePanel class 
+ * This is the class responsbile for statistics panel of horses
+ */
+
 public class HorsePanel extends JPanel {
-    // horse configuration
-    // private static JPanel createHorsePanel() {
-    //     JPanel horsePanel = new JPanel(new GridLayout(3,2));
-
-    //     JLabel horseNameLabel = new JLabel("Horse Name");
-    //     JTextField horseNameField = new JTextField();
-        
-    //     JLabel horseSymbolLabel = new JLabel("Horse Symbol");
-    //     JTextField horseSymbolField = new JTextField(1); // prob need to implement document filter to limit to one char only
-
-    //     JLabel horseBreedLabel = new JLabel("Horse Breed");
-    //     JComboBox<String> horseBreedSelector = new JComboBox<>(new String[]{"Thoroughbred", "Arabian", "Quarter Horse", "Others TBC"});
-
-    //     // JLabel 
-
-    //     horsePanel.add(horseNameLabel);
-    //     horsePanel.add(horseNameField);
-    //     horsePanel.add(horseSymbolLabel);
-    //     horsePanel.add(horseSymbolField);
-    //     horsePanel.add(horseBreedLabel);
-    //     horsePanel.add(horseBreedSelector);
-
-    //     return horsePanel;
-    // }
 
     public HorsePanel(Race race, RacePanel racePanel) {
         setLayout(new GridLayout(5,2));

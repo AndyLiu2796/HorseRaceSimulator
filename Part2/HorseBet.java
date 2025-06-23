@@ -2,6 +2,13 @@ package Part2;
 
 import javax.swing.JOptionPane;
 
+/**
+ * 
+ * @author Ho Ming Liu
+ * @version 23 April 2024
+ * HorseBet class 
+ * This is the class responsbile for bettings on an individual horse
+ */
 public class HorseBet {
     private Horse h;
     private double betAmount = 0;

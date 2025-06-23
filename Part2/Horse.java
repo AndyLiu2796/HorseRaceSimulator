@@ -4,11 +4,12 @@ import javax.swing.JOptionPane;
 import java.awt.Color;
 
 /**
- * Write a description of class Horse here.
+ * Horse Class is the class that manages the object horses with its attributes' corresponding mutator and accessor methods
  * 
  * @author Ho Ming Liu
  * @version 23 April 2024
  */
+
 public class Horse
 {
     //Fields of class Horse
@@ -17,7 +18,6 @@ public class Horse
     private int horseDistance = 0;
     private double horseConfidence;
     private boolean horseFallen = false;
-
 
     // // Extra fields of the class Horse
     private String breed = "Thoroughbred"; // default breed
@@ -30,25 +30,8 @@ public class Horse
 
     // extra field for stats
     protected PerformanceStats stats = new PerformanceStats();
-
     public PerformanceStats getStats() { return stats; }
-    // public void addPerformance(HorsePerformance perf, boolean win, int newConfidence) {
-    //     HorsePerformance hperf = new HorsePerformance(perf.getRaceDate(), perf.getTrackName(), perf.getTrackCondition(), perf.getFinishingTime(), this);
-    // }
-    
-      
-    //Constructor of class Horse
-    /**
-     * Constructor for objects of class Horse
-     */
-    // public Horse(char horseSymbol, String horseName, double horseConfidence, String breed, java.awt.Color coatColor, String accessories) {
-    //     this.horseSymbol = horseSymbol;
-    //     this.horseName = horseName;
-    //     this.horseConfidence = horseConfidence;
-    //     this.breed = breed;
-    //     this.coatColor = coatColor;
-    //     this.accessories = accessories;
-    // }
+
     public Horse(String horseSymbol, String horseName, double horseConfidence, String breed, String coatColor, String accessories, String horseshoes, String saddle) {
         this.horseSymbol = horseSymbol;
         this.horseName = horseName;
@@ -115,7 +98,8 @@ public class Horse
         setConfidence(horseConfidence);
     }
     
-    // not even sure will this work <--- check this HELLO
+    // empty horse constructor
+    //
     public Horse () {
         this.horseSymbol = "";
         this.horseName = "";
@@ -125,6 +109,7 @@ public class Horse
     //Other methods of class Horse
 
     // mutator method to make horse fall
+    //
     public void fall()
     {
         this.horseFallen = true;
@@ -134,49 +119,69 @@ public class Horse
         } // MIGHT AS WELL JSUT USE MATH.MIN FOR IT
     }
 
+    // mutator method to hose rise
+    //
     public void rise() {
         this.horseFallen = false;
-    }
+    } // END rise
     
     // accessor method to get confidence
+    //
     public double getConfidence() { return this.horseConfidence; }
+    // END getConfidence
 
+    // mutator to change confidence
+    //
     public void addConfidence(double c) {
         horseConfidence += c;
-    }
+    } // END addConfidence
     
     // accessor method to get distance travelled
+    //
     public int getDistanceTravelled() { 
         if (this != null) {
             return this.horseDistance;
         } else {
             return 0;
         }
-
-    }
+    } // END getDistanceTravelled
     
     // accessor method to get name
+    //
     public String getName() { return this.horseName; }
+    // END getName
 
+    // mutator method to set name
+    //
     public void setName(String horseName) { this.horseName = horseName;}
+    // END setName
     
     // accessor method to get symbol
+    //
     public String getSymbol() { return this.horseSymbol; }
+    // END getSymbol
     
     // mutator method to reset distance
+    //
     public void goBackToStart() { this.horseDistance = 0; }
+    // END goBackToStart
     
     // accessor method to get horseFallen status
+    //
     public boolean hasFallen() { 
         if (this != null) {
             return this.horseFallen; // or throw an exception
         }
         return true;
-    }
+    } // END hasFallen
+
     // mutator method to move horse forward by 1(default)
+    //
     public void moveForward() { this.horseDistance+=speed;}
+    // END moveForward
 
     // mutator method to set confidence with a given value
+    //
     public void setConfidence(double newConfidence) {
         if (newConfidence <= 1.0 && newConfidence >= 0.0)
         {
@@ -187,23 +192,33 @@ public class Horse
             JOptionPane.showMessageDialog(null, "Invalid input. Please check all fields.", "Error", JOptionPane.ERROR_MESSAGE);
             throw new IllegalArgumentException("Confidence should be between 0.0 and 1.0");
         }
-    }
+    } // END setConfidence
     
     // mutator method to set symbol
-    public void setSymbol(String newSymbol)
-    {
+    // 
+    public void setSymbol(String newSymbol){
         this.horseSymbol = Filter.firstSymbol(newSymbol);
-    }
+    } // END setSymbol
 
     // accessor method for breed
+    //
     public String getBreed() { return breed; }
+    // END getBreed
 
     // mutator method for breed
+    //
     public void setBreed(String breed) { this.breed = breed; }
+    // END setBreed
 
+    // accessor method that returns coat color
+    //
     public String getCoatColor() { return coatColor; }
+    // END getCoatColor
 
+    // mutator method that sets coat color
+    //
     public void setCoatColor(String coatColor) { this.coatColor = coatColor;}
+    // END setCoatColor
 
     public String getAccessories() {return accessories;}
 
@@ -211,6 +226,8 @@ public class Horse
     
     public int getSpeed() { return speed; }
 
+    // mutator method for setting speed with input validation
+    //
     public void setSpeed(int speed) {
         if (speed > 0) {
             this.speed = speed;
@@ -218,7 +235,7 @@ public class Horse
             JOptionPane.showMessageDialog(null, "Invalid input. Please check all fields.", "Error", JOptionPane.ERROR_MESSAGE);
             throw new IllegalArgumentException("Speed should be greater than 0");
         }
-    }
+    } // END setSpeed
 
     public String getSaddleType() { return saddleType; }
     public void setSaddleType(String saddleType) { this.saddleType = saddleType; }

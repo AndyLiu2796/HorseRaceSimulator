@@ -3,7 +3,21 @@ package Part2;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * 
+ * @author Ho Ming, Liu
+ * @version 2.0
+ */
+
+ /**
+  * TrackPanel class 
+  * This class manages the input textfiels for track customization
+  */
 public class TrackPanel extends JPanel {
+    /*
+     * @param race - the corresponding race
+     * @param racePAnel - the corresponding racepanel
+     */
     public TrackPanel(Race race, RacePanel racePanel) {
         setLayout(new GridLayout(5, 2));
 

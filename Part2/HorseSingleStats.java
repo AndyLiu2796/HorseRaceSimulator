@@ -2,6 +2,14 @@ package Part2;
 
 import javax.swing.*;
 
+/**
+ * 
+ * @author Ho Ming Liu
+ * @version 23 April 2024
+ * HorseSingleStat class 
+ * This is the class responsbile for the panel showing the horse performance in one race
+ */
+
 public class HorseSingleStats {
     public JFrame printStats(Horse s) {
         JFrame frame = new JFrame("Horse Statistics");

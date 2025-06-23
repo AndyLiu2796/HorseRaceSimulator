@@ -5,6 +5,16 @@ import java.awt.GridLayout;
 import java.util.*;
 import javax.swing.*;
 
+/**
+ * 
+ * @author Ho Ming, Liu
+ * @version 2.0
+ */
+
+ /**
+  * BettingFrame class
+  * This class manages the frame for betting amounts
+  */
 public class BettingFrame extends JFrame{
     private RaceBet raceBet;
     private List<Horse> horses;
@@ -13,13 +23,13 @@ public class BettingFrame extends JFrame{
     private JButton confirmBetButton;
     private JLabel oddsLabel;
     private JTextArea live;
-
     private Map<String, Horse> horseNameMap = new HashMap<>();
 
+    /*
+     * @param raceBet - the corresponding bet object
+     * @param race - the corresponding race
+     */
     public BettingFrame(RaceBet raceBet, Race race) {
-        // for (HorseBet hb : raceBet.getHorseBets()) {
-        //     System.out.println(hb.getHorse().getName());
-        // }
         this.raceBet = raceBet;
         this.horses = new ArrayList<>();
         for (HorseBet hb : raceBet.getHorseBets()) {
@@ -85,14 +95,18 @@ public class BettingFrame extends JFrame{
         updateRealTimeBet();
     }
     
+    // This method shows the odd in the panel
+    //
     private void showOdds() {
         String horseN = (String) horseComboBox.getSelectedItem();
         Horse horse = horseNameMap.get(horseN);
         // with the value put it inside the made method
         double odds = raceBet.calcOdd(horse);
         oddsLabel.setText("Odds: " + String.format("%.2f", odds));
-    }
+    } // END showOdds
 
+    // This method updates the bet according to track/horse potential changes on their attribute
+    //
     private void updateRealTimeBet() {
         live.setText("");
         StringBuilder sb = new StringBuilder();
@@ -107,8 +121,10 @@ public class BettingFrame extends JFrame{
             }
         }
         live.setText(sb.toString());
-    }
+    } // END updateRealTimeBet
 
+    // This method allows user to addBet through the button
+    //
     private void addBet() {
         String horseN = (String) horseComboBox.getSelectedItem();
         Horse horse = horseNameMap.get(horseN);
@@ -127,8 +143,10 @@ public class BettingFrame extends JFrame{
         raceBet.placeAmount(bet, horse);
         showOdds();
         updateRealTimeBet();
-    }
+    } // END addBet
 
+    // This method reload the horses(refresh)
+    //
     private void reloadHorses() {
         horseNameMap.clear();
         horses.clear();
@@ -142,10 +160,12 @@ public class BettingFrame extends JFrame{
         horseComboBox.setModel(new DefaultComboBoxModel<>(horseNameMap.keySet().toArray(new String[0])));
         showOdds();
         updateRealTimeBet();
-    }
+    } // END reloadHorses
 
+    // This method reload the race bet
+    //
     public void reloadRaceBet(Race race) {
         this.raceBet = new RaceBet(race);
         reloadHorses();
-    }
+    } // END reloadRaceBet
 }  
