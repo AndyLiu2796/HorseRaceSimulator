@@ -4,6 +4,16 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.*;
 
+/**
+ * 
+ * @author Ho Ming, Liu
+ * @version 2.0
+ */
+
+ /**
+  * RaceGUI class- 
+  * This class manages the swing gui framework
+  */
 public class RaceGUI {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(RaceGUI::startRaceGUI);
