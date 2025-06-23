@@ -1,9 +1,18 @@
 package Part2;
 
 import java.util.*;
-
 import javax.swing.JOptionPane;
 
+/**
+ * 
+ * @author Ho Ming, Liu
+ * @version 2.0
+ */
+
+ /**
+  * RaceBet class- The class responsible for betting horses before race
+  * This class manages the betting function of the simulation
+  */
 public class RaceBet {
     private Race race;
     private double totalWinScore;
@@ -11,6 +20,11 @@ public class RaceBet {
     private Map<Horse, HorseBet> horseBetMap = new HashMap<>();
     private List<PerMatchBetRecord> matchIncomes = new ArrayList<>();
 
+    
+    /* This constructor initializes the bet for every horse
+     * 
+     * 
+     */
     public RaceBet (Race race) {
         this.race = race;
         for (Horse h : race.returnLanes()) {
@@ -24,6 +38,8 @@ public class RaceBet {
         }
     }
 
+    // This method calculates the odd of each horse according to track conditions
+    //
     public double calcOdd(Horse h) {
         if (horseBetMap.get(h) == null) {
             JOptionPane.showMessageDialog(null, "Horse not found.");
@@ -61,16 +77,24 @@ public class RaceBet {
             finalOdds = 1;
         }
         return Double.parseDouble(String.format("%.2f", finalOdds));
-    }
+    } // END calcOdd
 
+    // This method calculates the win score of the horse
+    //
     public double calcScore(Horse h) {
         if (h == null) {
             return 0;
         }
         double winscore = 0.5 * h.getStats().getWinRatio() + 0.1 * h.getConfidence() + 0.2 * h.getSpeed();
         return winscore;
-    }
+    } // END calcScore
 
+    /* 
+     * @param amount - The amount of bet user want to add
+     * @param h - The horse the user want to bet on
+     */
+    // This method allows user to place Amount
+    //
     public void placeAmount (double amount, Horse h) {
         if (h == null) {
             JOptionPane.showMessageDialog(null, "Horse not found.");
@@ -92,25 +116,10 @@ public class RaceBet {
                 JOptionPane.showMessageDialog(null, "Bet amount not set.");
             }
         } 
-    }
+    } // END placeAmount
 
-    // public void getNetIncome() {
-    //     for (HorseBet hb : getHorseBets()) {
-    //         if (hb.getHorse() != null) {
-    //             if (race.raceWonBy(hb.getHorse())) {
-    //                 double newIncome = race.getTotalIncome() + (hb.getBetAmount() * hb.getOdds());
-    //                 race.setTotalIncome(newIncome);
-    //                 JOptionPane.showMessageDialog(null, "Net income for " + hb.getHorse().getName() + " is: " + race.getTotalIncome());
-    //             } else {
-    //                 double newIncome = race.getTotalIncome() - hb.getBetAmount();
-    //                 race.setTotalIncome(newIncome);
-    //                 JOptionPane.showMessageDialog(null, "Net income for " + hb.getHorse().getName() + " is: " + race.getTotalIncome());
-    //             }
-    //         }
-    //     }
-    // }
-
-    //overload method
+    // This method returns the overall net change of the bets in the race
+    //
     public double returnIncome() {
         double newIncome = 0.0;
         for (HorseBet hb : getHorseBets()) {
@@ -123,19 +132,25 @@ public class RaceBet {
             }
         }
         return newIncome;
-    }
+    } // END returnIncome
 
+    // This method archives the result for record
+    //
     public void archiveResult() {
         PerMatchBetRecord record = new PerMatchBetRecord(totalBetAmount, returnIncome());
         matchIncomes.add(record);
         totalBetAmount = 0; // reset or else the betamount adds up every match
-    }
+    } // END archiveResult
 
+    // This method return the list of incomes every round
+    //
     public List<PerMatchBetRecord> getMatchIncomes() {
         return matchIncomes;
-    }
+    } // END getMatchIncomes
 
+    // This method returns the bet of the horse
+    //
     public Collection<HorseBet> getHorseBets() {
         return horseBetMap.values();
-    }
+    } // END getHorseBets
 }
