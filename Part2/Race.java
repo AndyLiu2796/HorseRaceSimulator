@@ -1,9 +1,8 @@
 package Part2;
-import java.util.concurrent.TimeUnit;
 
+import java.util.concurrent.TimeUnit;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
-
 import java.lang.Math;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,19 +13,19 @@ import java.time.LocalDate;
  * A three-horse race, each horse running in its own lane
  * for a given distance
  * 
- * @author McRaceface
- * @version 1.0
+ * @author Ho Ming, Liu
+ * @version 2.0
  */
+
+ /**
+  * Race class- Simulates a custom-sized horse race with customizable track and weather conditions
+  * This class manages the race setup, horse movements, race progress and results
+  */
 public class Race
 {
     private int raceLength;
     private int laneNumber;
-    private List<Horse> lanes = new ArrayList<>();
-
-    // try this
-    // RaceBet raceBet = new RaceBet(this);
-
-
+    private List<Horse> lanes = new ArrayList<>(); // 
     // extra fields
     private String trackShape = "Straight"; // default track shape others are like figure eight and circular i want a straight
     private String weather = "Dry"; // default track surface others are like muddy icy rainy
@@ -38,39 +37,40 @@ public class Race
      * Initially there are no horses in the laness
      * 
      * @param distance the length of the racetrack (in metres/yards...)
+     * @param numLanes the number of lanes that would be added to the track
      */
     public Race(int distance, int numLanes)
     {
         // initialise instance variables
         this.raceLength = distance;
         this.laneNumber = numLanes;
-        lanes.clear(); //reset arraylist just in casse of previous effect
+        lanes.clear(); //reset arraylist to clear previous run
         for (int i = 0; i < this.laneNumber; i++) {
             lanes.add(null);
         }
     }
-    // {
-    //     // initialise instance variables
-    //     raceLength = distance;
-    //     // for (Horse h : lanes) {
-    //     //     h = null;
-    //     // }
-    // }
 
-    /* Below are the GUI accessors and mutators */
-    //GUI setters
+    /* *
+     * GUI accessors and mutators
+     */
+    // GUI setters
+
+    // This method sets the tracklength
+    //
     public void setTrackLength(int length) {
         this.raceLength = length;
-    }
+    } // END setTrackLength
     public void setLaneNumber(int laneNumber) { // IM THINKING LIKE USING THIS TO REMOVE THE PART IN CONSTRUCTOR
         this.laneNumber = laneNumber;
         lanes.clear(); //reset arraylist just in casse of previous effect
         for (int i = 0; i < this.laneNumber; i++) {
             lanes.add(null);
         }
-    }
+    } // END setTrack
 
-    public void safeSetLaneNumber(int laneNumber) { // IM THINKING LIKE USING THIS TO REMOVE THE PART IN CONSTRUCTOR
+    // This method sets the lane number for non-initial run
+    // 
+    public void safeSetLaneNumber(int laneNumber) {
         this.laneNumber = laneNumber;
         List<Horse> oldHorses = new ArrayList<>(lanes); // make a copy of the old horses
         lanes.clear(); //reset arraylist just in casse of previous effect
@@ -85,26 +85,45 @@ public class Race
         if (oldHorses.size() > this.laneNumber) {
             JOptionPane.showMessageDialog(null, "There are more horses than lanes. Some horses will be removed.", "Error", JOptionPane.ERROR_MESSAGE);
         }
-    }
+    } // END safeSetLaneNumber
+
+    // This method sets the weather condition
+    // 
     public void setWeather(String weather) {
         this.weather = weather;
-    }
+    } // END setWeather
+
+    // This method sets the shape of track
+    //
     public void setTrackShape(String trackShape) {
         this.trackShape = trackShape;
-    }
+    } // END setTrackShape
+
     // GUI getters
+
+    // This method returns track length
+    //
     public int getTrackLength() {
         return this.raceLength;
-    }
+    } // END getTrackLength
+
+    // This method returns lane number
+    //
     public int getLaneNumber() {
         return this.laneNumber;
-    }
+    } // END getLaneNumber
+
+    // This method returns the weather condition
+    //
     public String getWeather() {
         return this.weather;
-    }
+    } // END getWeather
+
+    // This method returns the track shapes
+    //
     public String getTrackShape() {
         return this.trackShape;
-    }
+    } // END getTrackShape
 
     
     /**
@@ -114,6 +133,7 @@ public class Race
      * @param laneNumber the lane that the horse will be added to
      */
     // method if someone wants to assign horse to a specific line
+    //
     public void addHorse(Horse theHorse, int laneNumber)
     {
         if (laneNumber < 0 || laneNumber >= lanes.size()) {
@@ -128,9 +148,10 @@ public class Race
         else {
             lanes.set(laneNumber, theHorse);
         }
-    }
+    } // END addHorse
 
     // overload the method
+    //
     public void addHorse(Horse theHorse)
     {
         for (int i = 0; i < lanes.size(); i++) {
@@ -139,39 +160,46 @@ public class Race
                 return;
             }
         }
-        System.out.println("unavialable lane for horse " + theHorse.getName());
-    }
+        System.out.println("unavailable lane for horse " + theHorse.getName());
+    } // END addHorse
     
-    // methods to simplify
+    // methods to reset distance before running
+    //
     public void resetAllHorses() {
         for (Horse h : lanes) {
             if (h != null) {
                 h.goBackToStart();
             }
         }
-    }
+    } // END resetAllHorses
 
-    // methods to move horses
+    // methods to move horses forward
+    // 
     public void moveAllHorses() {
         for (Horse h : lanes) {
             if (h != null) {
                 moveHorse(h);
             }
         }
-    }
+    } // END moveAllHorses
 
+    // methods to reset fallen status
+    //
     public void riseAllHorses() {
         for (Horse h : lanes) {
             if (h != null) {
                 h.rise();
             }
         }
-    }
+    } // END riseAllHorses
+
     /**
      * Start the race
      * The horse are brought to the start and
      * then repeatedly moved forward until the 
      * race is finished
+     * @param rp the racepanel created in another class
+     * @param rb the bet initalised in another panel
      */
     public void startRace(RacePanel rp, RaceBet rb)
     {
@@ -181,27 +209,13 @@ public class Race
         long raceStartTime = System.currentTimeMillis();
         long raceEndTime = 0; // Initialize with a default valu
 
-        
-        //reset all the lanes (all horses not fallen and back to 0). 
-        // for (Horse h : lanes) {
-        //     h.goBackToStart();
-        // }
         resetAllHorses();
         riseAllHorses();
 
         while (!finished)
         {
-            //move each horse
-            // for (Horse h : lanes) {
-            //     moveHorse(h);
-            // }
             moveAllHorses();
-            // moveHorse(lane1Horse);
-            // moveHorse(lane2Horse);
-            // moveHorse(lane3Horse);
-                        
-            //print the race positions
-            // printRace();
+
             SwingUtilities.invokeLater(() -> rp.UpdateScreen()); // EDT
             
             //if any of the three horses has won the race is finished
@@ -212,11 +226,7 @@ public class Race
                     break;
                 }
             }
-            // if ( raceWonBy(lane1Horse) || raceWonBy(lane2Horse) || raceWonBy(lane3Horse) )
-            // {
-            //     finished = true;
-                
-            // }
+
             if (!checkLosers()) {
                 finished = true;
                 raceEndTime = System.currentTimeMillis();
@@ -230,25 +240,16 @@ public class Race
             }catch(Exception e){}
 
         }
-        // // print the winners
-        // if (getWinners().size() == 0) {
-        //     System.out.println("No winners!");
-        // }
-        // else if (getWinners().size() == 1) {
-        //     System.out.print("Winner: ");
-        //     System.out.println(getWinners().get(0) + " won!");
-        // }
-        // else {
-        //     System.out.print("Winners: ");
-        //     System.out.println(String.join(" + ", getWinners()) + " won!");
-        // }
+
         double raceDuration = ((double)(raceEndTime - raceStartTime)) / 1000.0; // in seconds
         addRecord();
         rb.archiveResult();
         totalIncome += rb.returnIncome();
         JOptionPane.showMessageDialog(null, "Net Balance: " + totalIncome);
-    }
+    } // END startRace
 
+    // the method to add Record to track Horse performance
+    //
     public void addRecord () {
         for (Horse h : lanes) {
             if (h != null) {
@@ -259,7 +260,7 @@ public class Race
                 h.stats.addPerformance(hp, raceWonBy(h), h);
             }
         }
-    }
+    } // END addRecord
 
     /**
      * Randomly make a horse move forward or fall depending
@@ -268,28 +269,6 @@ public class Race
      * 
      * @param theHorse the horse to be moved
      */
-    // private void moveHorse(Horse theHorse)
-    // {
-    //     //if the horse has fallen it cannot move, 
-    //     //so only run if it has not fallen
-    //     if  (!theHorse.hasFallen())
-    //     {
-    //         //the probability that the horse will move forward depends on the confidence;
-    //         if (Math.random() < theHorse.getConfidence())
-    //         {
-    //            theHorse.moveForward();
-    //         }
-            
-    //         //the probability that the horse will fall is very small (max is 0.1)
-    //         //but will also will depends exponentially on confidence 
-    //         //so if you double the confidence, the probability that it will fall is *2
-    //         if (Math.random() < (0.1*theHorse.getConfidence()*theHorse.getConfidence()))
-    //         {
-    //             theHorse.fall();
-    //         }
-    //     }
-    // }
-    // now trying to upgrade with new conditions like weather
     private void moveHorse(Horse theHorse)
     {
         double moveForwardProbability = theHorse.getConfidence(); // default move forward probability
@@ -372,7 +351,7 @@ public class Race
                 theHorse.fall();
             }
         }
-    }
+    } // END moveHorse
 
 
         
@@ -393,8 +372,10 @@ public class Race
         {
             return false;
         }
-    }
+    } // END raceWonBy
     
+    // This method returns the list of winner(s)
+    //
     public ArrayList<String> getWinners() {
         ArrayList<String> winners = new ArrayList<>();
         for (Horse h : lanes) {
@@ -406,10 +387,11 @@ public class Race
             }
         }
         return winners;
-    }
+    } // END getWinners
 
     // This method checks whether all horses have fallen
     // It returns false when all fallen
+    //
     public boolean checkLosers() {
         for (Horse h : lanes) {
             if (h!=null && !h.hasFallen()) {
@@ -417,20 +399,22 @@ public class Race
             }
         }
         return false; // all horses have fallen
-    }
+    } // END checkLosers
 
-    // do this for now 
+    // return the list of statistics of all horses
+    //
     public ArrayList<String> getHorseStatistics () {
         ArrayList<String> horseStats = new ArrayList<>();
         for (Horse h : lanes) {
             horseStats.add(h.getName() + " - Distance: " + h.getDistanceTravelled() + ", Confidence: " + String.format("%.2f", h.getConfidence()));
         }
         return horseStats;
-    }
+    } // END getHorseStatistics
 
     /***
      * Print the race on the terminal
      */
+    // This method is not used in part 2
     private void printRace()
     {
         System.out.print('\u000C');  //clear the terminal window
@@ -453,6 +437,7 @@ public class Race
      * |           X                      |
      * to show how far the horse has run
      */
+    // Also not used in this part
     private void printLane(Horse theHorse)
     {
         //calculate how many spaces are needed before
@@ -492,6 +477,7 @@ public class Race
      * 
      * @param aChar the character to Print
      */
+    // For Part 1 not Part 2
     private void multiplePrint(char aChar, int times)
     {
         int i = 0;
